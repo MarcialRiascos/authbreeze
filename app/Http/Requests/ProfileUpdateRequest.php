@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Http\Requests;
+
+use App\Models\User;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class ProfileUpdateRequest extends FormRequest
+{
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'name' => ['string', 'max:255'],
+            'lastname' => ['string', 'max:255'],
+            'sex' => ['string', 'max:255'],
+            'dni' => ['string', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
+            'nacimiento' => ['string', 'max:255'],
+            'description' => ['string', 'max:255'],
+            'facebook' => ['string', 'max:255'],
+            'instagram' => ['string', 'max:255'],
+            'youtube' => ['string', 'max:255'],
+            'phone' => ['string', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
+            'email' => ['email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
+            'file' => ['string', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
+        ];
+    }
+}
